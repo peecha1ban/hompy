@@ -1,0 +1,80 @@
+/* css/responsive.css */
+/*
+   이 파일은 화면 크기에 따른 반응형 디자인 스타일을 정의합니다.
+   주로 미디어 쿼리(@media)를 사용하여 모바일, 태블릿 등
+   다양한 기기에서 웹사이트가 최적화되어 보이도록 조정합니다.
+*/
+
+@media (max-width: 48em) { /* 화면 너비가 768px (48em) 이하일 때 적용 */
+    /* --- 컨테이너 레이아웃 (Container Layout) --- */
+    /*
+       모바일 화면에서 메인 컨테이너의 레이아웃을 세로 방향으로 변경합니다.
+    */
+    .container {
+        flex-direction: column; /* 요소를 세로로 정렬 */
+        height: 100vh; /* 뷰포트 높이 100% 사용 */
+        padding-bottom: 0;
+    }
+
+    /* --- 좌측/우측 패널 (Left/Right Panel) --- */
+    /*
+       모바일 화면에서 좌측 및 우측 패널의 너비를 100%로 설정합니다.
+    */
+    .left-panel, .right-panel {
+        width: 100%;
+        transition: none; /* 전환 효과 비활성화 */
+    }
+    
+    .left-panel {
+        border-right: none; /* 기존 우측 테두리 제거 */
+        border-bottom: var(--border-width-thin) solid var(--border-color-light); /* 하단 테두리 추가 (1px) */
+        overflow-y: auto; /* 내용이 넘칠 경우 스크롤 허용 */
+    }
+    
+    .right-panel {
+        overflow-y: auto; /* 내용이 넘칠 경우 스크롤 허용 */
+        position: relative; 
+    }
+
+    /* --- 크기 조절 바 (Resizer Styles for Mobile) --- */
+    /*
+       모바일 화면에서 패널 크기 조절 바의 스타일을 세로 방향으로 조정합니다.
+    */
+    .resizer {
+        height: var(--spacing-sm); /* 높이 16px */
+        width: 100%;
+        cursor: ns-resize; /* 상하 크기 조절 커서 */
+        padding: var(--spacing-xxs) 0; /* 상하 4px 패딩 */
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-left: none; /* 기존 좌측 테두리 제거 */
+        border-top: var(--border-width-thin) solid var(--border-color-light); /* 상단 테두리 추가 */
+        border-bottom: var(--border-width-thin) solid var(--border-color-light); /* 하단 테두리 추가 */
+    }
+    .resizer::before {
+        content: '';
+        display: block;
+        width: var(--spacing-lg); /* 32px */
+        height: var(--spacing-xxs); /* 4px */
+        background-color: rgba(var(--color-text-primary-rgb), 0.5); /* 반투명 배경색 */
+        border-radius: 0.125rem; /* 2px */
+    }
+    
+    /* --- 방명록 컨테이너 (Chatroom Container) --- */
+    /*
+       모바일 화면에서 방명록 컨테이너의 너비를 조정합니다.
+    */
+    #chatroom-container {
+        width: calc(100vw - var(--spacing-md)) !important; /* 화면 너비에서 양쪽 24px씩(총 48px) 제외 */
+    }
+    
+    /* --- 검색창 확장 시 (Expanded Search Input) --- */
+    /*
+       모바일 화면에서 검색창이 확장되었을 때 최대 너비를 제한합니다.
+    */
+    .search-container.expanded #search-input{
+        max-width: 10rem; /* 최대 너비 160px */
+    }
+}

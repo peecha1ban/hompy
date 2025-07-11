@@ -1,0 +1,256 @@
+/* css/components.css */
+/*
+   이 파일은 웹사이트의 개별 UI 컴포넌트(예: 내비게이션, 게시물 목록, 검색창 등)의 스타일을 정의합니다.
+   각 컴포넌트의 시각적 요소를 쉽게 찾아서 수정할 수 있도록 섹션별로 정리되어 있습니다.
+   전역 스타일은 style.css에서 관리됩니다.
+*/
+
+/* --- 내비게이션 (Navigation) --- */
+/*
+   상단 내비게이션 바와 그 안의 요소들 스타일을 정의합니다.
+   HTML 구조에서 <div id="nav">에 해당합니다.
+*/
+#nav {
+    padding: var(--spacing-xs); /* 상하좌우 8px */
+    padding-bottom: var(--spacing-md); /* 하단 24px */
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    line-height: 100%;
+    box-sizing: border-box;
+    gap: 0; /* 플렉스 아이템 간 간격 없음 */
+    margin-bottom: var(--spacing-sm); /* 하단 여백 16px */
+    position: sticky; /* 스크롤 시 상단에 고정 */
+    top:0;
+    z-index: 100; /* 다른 요소 위에 표시 */
+    background: linear-gradient(to bottom, 
+        rgba(var(--color-background-light-rgb), 1) 40%, 
+        rgba(var(--color-background-light-rgb), 0) 100%); /* 그라데이션 배경 */
+}
+
+/* About 섹션 컨테이너 */
+#about-container {
+    flex: 1; /* 사용 가능한 공간을 채우도록 확장 */
+    display:flex;
+align-items:center;
+}
+
+/* About 링크 및 더보기 버튼 */
+.about, #load-more-btn{
+    color: var(--color-link); /* 링크 색상 적용 */
+}
+
+.about:hover, #search-button:hover{
+    border: none;
+    border-bottom: var(--border-width-thin) var(--border-style-solid) var(--color-link); /* 호버 시 하단 테두리 추가 */
+    width: fit-content; /* 내용에 맞춰 너비 조절 */
+}
+
+/* 더보기 버튼 */
+#load-more-btn{
+    width: 100%;
+    text-align: center;
+    padding: var(--spacing-sm); /* 16px */
+    padding-top: var(--spacing-xxs); /* 상단 4px */
+}
+
+/* --- 검색 섹션 (Search Section) --- */
+/*
+   검색 입력창과 버튼 관련 스타일을 정의합니다.
+   HTML 구조에서 <div class="search-container">에 해당합니다.
+*/
+.search-container{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end; /* 우측 정렬 */
+    color: var(--color-link); /* 링크 색상 적용 */
+}
+
+/* 검색 입력창 */
+#search-input{
+    border: none;
+    border-bottom: var(--border-width-thin) var(--border-style-solid) var(--color-link); /* 하단 테두리 */
+    width: 0; /* 기본 너비 0 (숨김) */
+    opacity: 0; /* 기본 투명도 0 (숨김) */
+    background-color: transparent; /* 배경색 투명 */
+    transition: width 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out, border 0.3s ease-out; /* 전환 효과 */
+    box-shadow:none !important; /* 그림자 제거 (root 변수의 input 그림자 오버라이드) */
+}
+
+/* 검색 컨테이너 확장 시 검색 입력창 */
+.search-container.expanded #search-input{
+    width: 100%; /* 너비 자동 조절 */
+    opacity: 1; /* 보이게 함 */
+    color: var(--color-link); /* 링크 색상 적용 */
+    font-size: 1em;
+}
+
+/* 검색 컨테이너 확장 시 검색 버튼 */
+.search-container.expanded #search-button {
+    border-bottom: var(--border-width-thin) var(--border-style-solid) var(--color-link); /* 하단 테두리 */
+}
+
+/* 검색 버튼 */
+#search-button{
+    color: var(--color-link); /* 링크 색상 적용 */
+    padding: 0;
+}
+
+/* --- 태그 필터 드롭다운 (Tag Filter Dropdown) --- */
+/*
+   태그 필터 선택 상자 관련 스타일을 정의합니다.
+   HTML 구조에서 <div class="tag-filter-container">에 해당합니다.
+*/
+.tag-filter-container {
+    flex: 1;
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+    line-height: 1em; /* 라인 높이 */
+    background-color: transparent; /* 배경색 투명 */
+    color: var(--color-link); /* 링크 색상 적용 */
+}
+
+/* 태그 필터 선택 상자 (select) */
+.tag-filter-container select {
+    font: inherit; /* 부모 요소의 폰트 상속 */
+    box-sizing: border-box;
+    border: none;
+    /* border-bottom: var(--border-width-thin) var(--border-style-solid) var(--color-link); 하단 테두리 */
+    background-color: var(--color-primary); /* 배경색 투명 */
+    color: var(--color-link); /* 링크 색상 적용 */
+    padding: 0;
+}
+
+/* --- 게시물 목록 (Post List) --- */
+/*
+   왼쪽 패널에 표시되는 게시물 목록 스타일을 정의합니다.
+   HTML 구조에서 <ul id="post-list">에 해당합니다.
+*/
+#post-list {
+    list-style: none; /* 목록 마커 제거 */
+    padding: var(--spacing-xs); /* 상하좌우 8px */
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    gap: var(--spacing-sm); /* 아이템 간 간격 16px */
+    min-height: 100%; /* 최소 높이 100% */
+    margin-bottom: var(--spacing-xs); /* 하단 여백 8px */
+}
+
+/* 개별 게시물 항목 (li) */
+#post-list li {
+    transition: background-color 0.3s ease, transform 0.2s ease; /* 전환 효과 */
+    position: relative;
+    border-top: var(--stroke); /* 상단 테두리 */
+    padding-top: var(--spacing-xxs); /* 상단 패딩 4px */
+}
+
+/* 게시물 항목 호버 시 */
+#post-list li:hover {
+    background: linear-gradient(to bottom, 
+     rgba(var(--color-primary-rgb), 1), 
+     rgba(var(--color-primary-rgb), 0)); /* 그라데이션 배경 */
+}
+
+/* 활성화된 게시물 항목 */
+#post-list li.active-post {
+    background: linear-gradient(to bottom, 
+                              rgba(var(--color-primary-rgb), 1), 
+                              rgba(var(--color-primary-rgb), 0)); /* 그라데이션 배경 */
+}
+
+/* 게시물 제목 컨테이너 */
+.post-title-container{
+    display: flex;
+    flex-direction: row; /* 가로 정렬 */
+    gap: var(--spacing-xs); /* 아이템 간 간격 8px */
+    margin-bottom: var(--spacing-sm); /* 하단 여백 16px */
+}
+
+/* 게시물 제목 */
+.post-title {
+    flex-grow: 1; /* 사용 가능한 공간을 채우도록 확장 */
+}
+
+/* 게시물 날짜 */
+.post-date {
+    flex-shrink: 0; /* 공간이 부족해도 줄어들지 않음 */
+}
+
+/* 게시물 태그, 좋아요 컨테이너, 공유 컨테이너 */
+.post-tag, .post-like-container, .share-container {
+    border: var(--stroke); /* 테두리 */
+    border-radius: var(--border-radius-default); /* 둥근 테두리 */
+    padding: 0.75em; /* 패딩 */
+}
+
+/* 외부 링크 버튼 */
+.post-external-link-btn{    
+    padding: 0.75em; /* 패딩 */
+    box-shadow: var(--shadow-button-raised-outer), var(--shadow-button-raised-inner); /* 입체감 있는 그림자 */
+    border: var(--stroke); /* 테두리 */
+}
+
+/* 좋아요 및 공유 컨테이너 */
+.post-like-container, .share-container {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: var(--spacing-xxs); /* 아이템 간 간격 4px */
+}
+
+/* 좋아요 및 공유 버튼 */
+.like-button, .share-button {
+    padding: 0;
+    margin: 0;
+    color: var(--color-text-primary); /* 기본 텍스트 색상 */
+    transition: color 0.2s ease, transform 0.2s ease; /* 전환 효과 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-small); /* 작은 폰트 크기 */
+}
+
+/* 좋아요/공유 컨테이너 호버 시, 또는 좋아요가 눌렸을 때 */
+.post-like-container:hover, .share-container:hover, .post-like-container.liked {
+    background-color: var(--color-primary); /* 주요 강조 색상으로 배경 변경 */
+}
+
+/* 좋아요 및 공유 카운트 */
+.like-count, .share-count {
+    font-size: var(--font-size-small); /* 작은 폰트 크기 */
+    min-width: 1em; /* 최소 너비 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    line-height: 1; /* 라인 높이 */
+}
+
+/* 게시물 요약 */
+.post-note{
+    height: auto;
+    text-overflow: ellipsis; /* 내용이 넘칠 때 ... 표시 */
+    overflow: hidden; /* 내용 숨김 */
+}
+
+/* 고정된 게시물 */
+.pinned {
+    order: -1; /* 다른 게시물보다 먼저 표시 */
+}
+
+/* 액션 버튼 행 */
+.action-row {
+    display: flex;
+    flex-direction: row; /* 가로 정렬 */
+    gap: var(--spacing-xs); /* 아이템 간 간격 8px */
+    margin-top: var(--spacing-sm); /* 상단 여백 16px */
+    font-size: var(--font-size-small); /* 작은 폰트 크기 */
+    line-height: 1; /* 라인 높이 */
+}
+
+.action-row a{    
+    align-self: flex-end; /* 아래로 정렬 */
+    margin-left: auto; /* 왼쪽 자동 여백 (오른쪽으로 밀어냄) */
+    box-sizing: border-box;
+}
+
+/* 점 (Dot) 스타일 */
+.dot{ line-height: 1.855;}
