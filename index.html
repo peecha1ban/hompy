@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 
+
+    SNS가 노잼이 되었서,,, 그러탐...
+    콘텐츠 관리가 쉬운 홈피를 만들고 https://tally.so/r/wgVd9D 
+    동맹을 맺자! https://tally.so/r/n0YBxy 
+
+    [제안자] inah@sceneryoftoday.kr
+    [자세한 내용] https://tally.so/r/wgVd9D
+
+    -->
+    
+    <title>정신차려 각박한 서울에서 디자이너로 산다는 것...</title> 
+    <meta name="description" content=
+          "2012년 유명 에이전시 입사하고 그래픽 디자이너로 날개를 펼칠 줄 알았지 하지만 현실은 2014년부터 냉혹한 프리랜서의 길을 no정신으로 살다. 맨땅에 헤딩하며 얻은 생각이 많고, 디자인도 디자인이지만 협업의 기술을 쌓아왔다(이제 좀 자신있음). 나.. 그동안 많은 일이 있었어..."> 
+    <meta name="keywords" content="홈피, 그래픽 디자인, 서울 디자인 스튜디오, 디자이너, 활동가"> 
+    <meta name="robots" content="index, follow"> 
+    <meta property="og:title" content="정신차려 각박한 서울에서 디자이너로 산다는 것...">
+    <meta property="og:description" 
+          content="2012년 유명 에이전시 입사하고 그래픽 디자이너로 날개를 펼칠 줄 알았지 하지만 현실은 2014년부터 냉혹한 프리랜서의 길을 no정신으로 살다. 맨땅에 헤딩하며 얻은 생각이 많고, 디자인도 디자인이지만 협업의 기술을 쌓아왔다(이제 좀 자신있음). 나.. 그동안 많은 일이 있었어...">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://helloinah.github.io/hompy/"> 
+    <meta property="og:image" content="ogimage.webp"> <meta property="og:image:alt" content="이나의 홈피">
+    
+    <link rel="stylesheet" href="css/style.css?v=20250626">
+    <link rel="stylesheet" href="css/components.css?v=20250626">
+    <link rel="stylesheet" href="css/responsive.css?v=20250626">
+    <link rel="stylesheet" href="css/loading.css?v=20250626">
+    <link rel="stylesheet" href="css/chatroom.css?v=20250626"> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=expand_content" />    
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.3.0/dist/dotlottie-wc.js" type="module"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K5N1G9ZS2F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K5N1G9ZS2F');
+</script>
+    </head>
+<body>
+    <div class="loading-overlay" id="loading-overlay"></div>
+    <div class="loading-spinner" id="loading-spinner">
+        <dotlottie-wc
+            src="https://lottie.host/293719f5-4412-4c75-b5ca-0e6e04a80cbc/uEmPG1mjqj.lottie"
+            autoplay
+            loop
+            background="transparent" 
+            speed="1" 
+            style="width: 100%; height: 100%;" 
+        ></dotlottie-wc>
+    </div>
+    <div class="container">
+        <div class="left-panel">
+            <nav id="nav">
+                <div id="about-container"> 
+                    <div class="about">ABOUT</div> 
+                </div>
+                <div class="tag-filter-container">
+                    <select id="tag-filter">
+                        <option value="all">All Tags</option>
+                    </select>
+                </div>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="">
+                    <button id="search-button">Search</button>
+                </div>
+            </nav>
+
+            <ul id="post-list">
+            </ul>
+            <button id="load-more-btn">Load More</button>
+
+        </div>
+        <div class="resizer"></div>
+        <div class="right-panel">
+            <div id="iframe-overlay" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; z-index:100;"></div>
+            <iframe id="content-frame" title="내용" src="main.html"></iframe>
+        </div>
+        <div id="chatroom-container">
+                <div id="chatroom-header">
+                    <span id="chatroom-header-title">방명록</span>
+                    <span class="chat-button" id="toggle-button"><span class="material-symbols-outlined">expand_content</span></span>
+                </div>
+                <div id="chatroom-content">
+                <div id="chat-screen">
+                        <div id="messages-display">
+                        </div>
+                    </div>
+                </div>
+            <div id="chat-input"><input type="text" name="hp_email" id="hp_email" style="display:none !important; visibility:hidden !important; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off"> </div>
+                <div class="info">
+                            <input type="text" id="username-input" placeholder="닉네임">
+                            <input type="number" id="age-input" placeholder="나이">
+                            <input type="text" id="location-input" placeholder="지역">
+                </div>
+                <div id="message-input-area">
+                            <input type="text" id="message-input" placeholder="향기로운 사람은 떠난 자리도...">
+                            <button id="send-message-button">전송</button>
+                </div>
+            </div>
+    </div>
+    <script type="module" defer src="js/utils.js?v=20250626"></script>
+    <script type="module" defer src="js/postInteractions.js?v=20250626"></script>
+    <script type="module" defer src="js/resizer.js?v=20250626"></script>
+    <script type="module" defer src="js/script.js?v=20250626"></script>
+    <script type="module" defer src="js/chatroom.js?v=20250626"></script> 
+    <script type="module" defer src="js/cursor.js?v=20250626"></script>
+</body>
+    
+</html>

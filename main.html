@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Background HTML</title>
+    <style>
+        /* CSS for the video background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            position: relative; /* Needed for z-index of content */
+            z-index: 1; /* Ensures content is above the video */
+            color: white; /* Example text color for content */
+            text-align: center;
+            height: 100vh !important; /* Ensure body takes full viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-background {
+            position: fixed; /* Fixes the video to the viewport */
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0; /* Makes the div cover the entire screen */
+            overflow: hidden; /* Hides any overflowing parts of the video */
+            z-index: -99; /* Places it behind all other content, from CodePen */
+            width: 100% !important; /* Retaining your !important */
+            height: 100% !important; /* Retaining your !important */
+        }
+
+        /* This wrapper helps in managing the video's aspect ratio and positioning */
+        .video-foreground {
+            position: absolute; /* Positions relative to .video-background */
+            top: 0;
+            left: 0;
+            width: 100%; /* Initial fill of its parent */
+            height: 100%; /* Initial fill of its parent */
+            pointer-events: none; /* Allows clicks to pass through to elements below */
+        }
+
+        .video-background iframe {
+            position: absolute; /* Positions relative to .video-foreground */
+            top: 0;
+            left: 0;
+            width: 100%; /* Fills the .video-foreground container */
+            height: 100%; /* Fills the .video-foreground container */
+            pointer-events: none; /* Retaining from your original and consistent with CodePen */
+        }
+
+        /* Media Queries for Aspect Ratio Handling (from CodePen) */
+        @media (min-aspect-ratio: 16/9) { /* If screen is wider than 16:9 */
+            .video-foreground {
+                height: 300% !important; /* Make video much taller */
+                top: -100% !important; /* And shift it up to center it vertically */
+            }
+        }
+
+        @media (max-aspect-ratio: 16/9) { /* If screen is taller than 16:9 */
+            .video-foreground {
+                width: 300% !important; /* Make video much wider */
+                left: -100% !important; /* And shift it left to center it horizontally */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-background">
+        <div class="video-foreground">
+            <div id="player"></div>
+        </div>
+    </div>
+
+    <div style="position: relative; z-index: 100; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">
+        <h1>Welcome!</h1>
+        <p>This is content displayed on top of the background video.</p>
+    </div>
+
+    <script>
+        // JavaScript for the YouTube Iframe API
+        var player;
+
+        // This function is called by the YouTube IFrame API when it's ready
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                videoId: '-JhoMGoAfFc', // Replace with your desired YouTube video ID
+                playerVars: {
+                    autoplay: 1,      // Autoplay the video
+                    controls: 0,      // Hide video controls
+                    loop: 1,          // Loop the video automatically
+                    playlist: '-JhoMGoAfFc', // Essential for looping a single video. Must be same as videoId.
+                    mute: 1,          // Mute the video (highly recommended for autoplaying background videos)
+                    showinfo: 0,      // Hide video title and uploader info (Note: This parameter is largely deprecated by YouTube)
+                    modestbranding: 1, // Hide the YouTube logo more (shows a small YouTube text link)
+                    fs: 0,            // Disable fullscreen button (0 means disable, 1 means enable - keeping it disabled for background)
+                    rel: 0,           // Disable related videos at the end (Note: YouTube has reduced the effectiveness of this for true related videos)
+                    iv_load_policy: 3, // Disable annotations
+                    start: 0          // Start the video from the beginning (in seconds)
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+            // For true seamless looping, you might want to call seekTo(0) if loop=1 isn't perfect.
+            // But with loop=1 and playlist parameter, it should loop automatically.
+        }
+
+        function onPlayerStateChange(event) {
+            // If the video ends (and loop=1 is set), it should automatically restart.
+            // This condition ensures it loops correctly if loop=1 and playlist are somehow not enough.
+            if (event.data === YT.PlayerState.ENDED) {
+                player.seekTo(0); // Seek to the beginning
+                player.playVideo(); // Play again
+            }
+        }
+
+        // Load the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api"; // Correct and secure URL for YouTube Iframe API
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+
+</body>
+</html>
