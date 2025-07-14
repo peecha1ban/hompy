@@ -26,8 +26,8 @@
     --font-size-small: 0.8rem; /* 작은 텍스트 크기 (13px 기준 10.4px) */
     
     /* 색상 팔레트 */
-    --color-primary: rgb(248, 255, 80);   /* 주요 강조 색상 (노랑) */
-    --color-link: rgb(0, 123, 255);       /* 링크 색상 (파랑) */
+    --color-primary: rgb(255, 86, 121);   /* 주요 강조 색상 (핑크) */
+    --color-link: rgb(164, 164, 164);       /* 링크 색상 (회색) */
     --color-text-primary: rgb(0, 0, 0);   /* 기본 텍스트 색상 (검정) */
     --color-background-light: rgb(230, 230, 230); /* 밝은 배경색 (회색) */
     
