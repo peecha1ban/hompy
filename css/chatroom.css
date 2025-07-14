@@ -1,0 +1,221 @@
+/* css/chatroom.css */
+/*
+   이 파일은 방명록(채팅방)과 관련된 모든 스타일을 정의합니다.
+   방명록의 레이아웃, 메시지 표시, 입력 필드 등
+   모든 시각적 요소가 이 파일에 포함됩니다.
+*/
+
+/* --- Material Symbols Outlined 아이콘 (Google Material Icons) --- */
+/*
+   구글 Material 아이콘의 크기 및 기타 스타일을 정의합니다.
+*/
+.material-symbols-outlined {
+    font-size: 1.25rem !important;  /* 아이콘 크기 (20px) */
+    line-height: 1; /* 라인 높이 */
+    padding: 0;
+    margin: auto;
+  font-variation-settings: /* 아이콘 시각적 설정 */
+  'FILL' 0,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 20
+}
+
+/* --- 방명록 전체 컨테이너 (Chatroom Container) --- */
+/*
+   방명록 전체를 감싸는 컨테이너의 기본 스타일과
+   열렸을 때(`open` 클래스)의 스타일을 정의합니다.
+*/
+#chatroom-container {
+    width: calc(50vw - 3em); /* 화면 너비의 50%에서 48px 감소 */
+    box-sizing: border-box; /* 패딩과 테두리를 너비/높이에 포함 */
+    background-color: var(--color-background-light); /* 밝은 배경색 */
+    padding: var(--spacing-xs); /* 8px */
+    overflow: hidden; /* 내용이 넘치면 숨김 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    
+    position: fixed; /* 화면에 고정 */
+    bottom: 0; /* 화면 하단에 위치 */
+    right: var(--spacing-sm); /* 화면 우측에서 16px 떨어진 위치 */
+    
+    height: 3rem; /* 기본 높이 48px */
+    transition: height 0.3s ease-out, box-shadow 0.3s ease-out; /* 높이 및 그림자 변경 시 부드러운 전환 효과 */
+    filter: var(--shadow-chatroom-drop); /* 방명록 드롭 그림자 */
+}
+
+/* 방명록이 열렸을 때 (open 클래스 추가 시) */
+#chatroom-container.open {
+    height: 26rem; /* 열렸을 때 높이 416px */
+    display: flex; /* 플렉스 박스 사용 */
+    flex-direction: column; /* 자식 요소들을 세로로 정렬 */
+}
+
+/* --- 방명록 헤더 (Chatroom Header) --- */
+/*
+   방명록 상단의 제목 및 토글 버튼이 있는 영역의 스타일을 정의합니다.
+*/
+#chatroom-header {
+    width: 100%;
+    background-color: var(--color-primary); /* 주요 강조 색상 배경 */
+    padding: var(--spacing-xs); /* 8px */
+    box-sizing: border-box;
+    height: 2.25rem; /* 36px */
+    display: flex;
+    justify-content: space-between; /* 요소들을 양 끝으로 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    line-height: 1; /* 라인 높이 */
+    box-shadow: var(--shadow-button-raised-outer), var(--shadow-button-raised-inner); /* 입체감 있는 그림자 */
+}
+
+/* 방명록 헤더 제목 */
+#chatroom-header-title{font-size: var(--font-size-small) !important; } /* 작은 폰트 크기 */
+    
+/* --- 채팅방 버튼 (Chat Button) --- */
+/*
+   채팅방 열기/닫기 버튼의 스타일을 정의합니다.
+*/
+.chat-button {
+    background-color: var(--color-text-primary); /* 기본 텍스트 색상 배경 */
+    color: var(--color-primary); /* 주요 강조 색상 텍스트 */
+    line-height: 1;
+    aspect-ratio: 1 / 1; /* 가로세로 비율 1:1 */
+    box-sizing: border-box;
+    padding:0;
+    height: 1.25rem !important; /* 20px */
+}
+
+/* --- 방명록 내용 영역 (Chatroom Content) --- */
+/*
+   실제 채팅 메시지들이 표시되는 영역의 스타일을 정의합니다.
+*/
+#chatroom-content {
+    height: calc(100% - 1.875rem); /* 헤더 높이(30px)를 제외한 나머지 공간 사용 */
+    overflow-y: scroll; /* 내용이 넘치면 세로 스크롤바 생성 */
+    flex-grow: 1; /* 사용 가능한 수직 공간을 채우도록 확장 */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    padding-bottom: var(--spacing-xs); /* 하단 8px 패딩 */
+}
+
+/* 메시지 표시 영역 */
+#messages-display {
+    min-height: 0; /* 플렉스 아이템이 제대로 스크롤되도록 설정 */
+}
+
+/* 채팅 스크린 */
+#chat-screen {
+    vertical-align: bottom; /* 아래로 정렬 */
+}
+
+/* --- 채팅 메시지 (Chat Message) --- */
+/*
+   개별 채팅 메시지의 스타일을 정의합니다.
+*/
+.chat-message {
+    font-size: 0.8em; /* 폰트 크기 */
+    line-height: var(--line-height-small); /* 작은 텍스트 라인 높이 */
+    margin-bottom: 0.3125rem; /* 5px */
+    word-wrap: break-word; /* 긴 단어가 줄바꿈되도록 */
+    max-width: 90%; /* 최대 너비 */
+    align-self: flex-start; /* 기본적으로 좌측 정렬 */
+}
+
+/* --- 사용자 정보 입력 필드 (User Info Input Fields) --- */
+/*
+   닉네임, 나이, 지역 입력 필드 그룹의 스타일을 정의합니다.
+*/
+.info {
+    display: flex;
+    flex-direction: row; /* 가로 정렬 */
+    gap: var(--spacing-xxs); /* 아이템 간 간격 4px */
+    padding-bottom: 0;
+    line-height: 1;
+    margin-bottom: var(--spacing-xs); /* 하단 8px 여백 */
+}
+
+/* 숨겨진 정보 필드 */
+.info.hidden {
+    display: none !important; /* 숨김 */
+}
+
+/* 닉네임, 나이, 지역 입력 필드 */
+#username-input, #age-input, #location-input {
+    padding: var(--spacing-xs); /* 8px */
+    font-size: 0.9rem; /* 폰트 크기 */
+    min-width: 3rem; /* 최소 너비 48px */
+}
+
+#age-input, #location-input{flex: 1 0 2rem;}
+
+/* --- 메시지 입력 영역 (Message Input Area) --- */
+/*
+   메시지 입력창과 전송 버튼이 있는 영역의 스타일을 정의합니다.
+*/
+#message-input-area {
+    display: flex;
+    flex-direction: row; /* 가로 정렬 */
+    gap: var(--spacing-xxs); /* 아이템 간 간격 4px */
+    margin-top: auto; /* 방명록 콘텐츠 하단에 위치 */
+}
+
+/* 메시지 입력창 */
+#message-input-area input {
+    flex-grow: 1; /* 사용 가능한 공간을 채우도록 확장 */
+    margin-bottom: 0;
+    padding: var(--spacing-xs); /* 8px */
+    font-size: 0.9rem; /* 폰트 크기 */
+}
+
+/* 메시지 전송 버튼 */
+#send-message-button {
+    font-size: 0.8em; /* 폰트 크기 */
+    width: auto;
+    border: var(--stroke); /* 테두리 */
+    padding: var(--spacing-xs) var(--spacing-sm); /* 8px 16px */
+    box-shadow: var(--shadow-button-raised-outer), var(--shadow-button-raised-inner); /* 입체감 있는 그림자 */
+}
+
+#send-message-button:hover {
+    /* 호버 시 스타일 추가 */
+}
+
+/* --- 사용자별 색상 (User-specific Colors) --- */
+/*
+   각 사용자에게 할당되는 고유 색상 클래스를 정의합니다.
+*/
+.user-color-0 { color: #00b900; }
+.user-color-1 { color: #1212ff; }
+.user-color-2 { color: #880000; }
+.user-color-3 { color: #aaaa00; }
+.user-color-4 { color: #880088; }
+.user-color-5 { color: #008888; }
+
+/* --- 타임스탬프 (Timestamp) --- */
+/*
+   메시지 옆에 표시되는 시간 정보의 스타일을 정의합니다.
+*/
+.timestamp {
+    color: rgba(var(--color-text-primary-rgb), 0.7); /* 반투명 텍스트 색상 */
+    margin-right: 0.3125rem; /* 5px */
+    font-size: 0.8em; /* 폰트 크기 */
+}
+
+/* --- 날짜 구분선 (Date Divider) --- */
+/*
+   채팅 메시지 사이의 날짜 구분선의 스타일을 정의합니다.
+*/
+.date-divider {
+    border-top: var(--stroke); /* 상단 테두리 */
+    padding: var(--spacing-xs) 0; /* 상하 8px 패딩 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    font-size: var(--font-size-small); /* 작은 폰트 크기 */
+    position: relative;
+    user-select: none; /* 텍스트 선택 방지 */
+    line-height: 1.5;
+    margin: 0.75rem 0 0 0; /* 상단 12px 여백 */
+}
+
+.date-divider span {
+    padding: 0 var(--spacing-xs); /* 좌우 8px 패딩 */
+}

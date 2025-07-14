@@ -1,0 +1,41 @@
+/* css/loading.css */
+/*
+   이 파일은 웹사이트 로딩 중 표시되는 스피너와 오버레이의 스타일을 정의합니다.
+*/
+
+/* --- 로딩 스피너 (Loading Spinner) --- */
+.loading-spinner {
+    position: fixed; /* 화면에 고정 */
+    top: 50%; /* 세로 중앙 */
+    left: 50%; /* 가로 중앙 */
+    transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
+    width: 10rem; /* 160px */
+    height: 10rem; /* 160px */
+    z-index: 9999; /* 다른 요소 위에 최상단 */
+    display: none; /* 초기에는 숨김 */
+}
+
+/* --- DotLottie 웹 컴포넌트 (DotLottie Web Component) --- */
+/*
+   Lottie 애니메이션을 표시하는 웹 컴포넌트에 대한 스타일입니다.
+   애니메이션이 컨테이너에 맞게 채워지도록 합니다.
+*/
+dotlottie-wc {
+    width: 100%;
+    height: 100%;
+}
+
+/* --- 로딩 오버레이 (Loading Overlay) --- */
+/*
+   로딩 중 사용자 인터랙션을 방지하기 위한 반투명 오버레이입니다.
+*/
+.loading-overlay {
+    position: fixed; /* 화면에 고정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(var(--color-background-light-rgb), 0.7); /* 반투명 배경색 */
+    z-index: 9998; /* 스피너보다 아래 */
+    display: none; /* 초기에는 숨김 */
+}

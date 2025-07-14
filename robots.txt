@@ -1,0 +1,7 @@
+# robots.txt for Inah's Hompy
+
+# Allow all crawlers to access all content by default
+User-agent: *
+Disallow: /js/ # Disallow access to JavaScript files (optional, but common for raw source code)
+Disallow: /css/ # Disallow access to CSS files (optional)
+Disallow: /contents/html/blank.html # Disallow a specific blank page if it's not meant for public indexing

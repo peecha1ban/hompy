@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Background HTML</title>
+    <style>
+        /* CSS for the video background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            position: relative; /* Needed for z-index of content */
+            z-index: 1; /* Ensures content is above the video */
+            color: white; /* Example text color for content */
+            text-align: center;
+            height: 100vh !important; /* Ensure body takes full viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-background {
+            position: fixed; /* Fixes the video to the viewport */
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0; /* Makes the div cover the entire screen */
+            overflow: hidden; /* Hides any overflowing parts of the video */
+            z-index: -99; /* Places it behind all other content, from CodePen */
+            width: 100% !important; /* Retaining your !important */
+            height: 100% !important; /* Retaining your !important */
+        }
+
+        /* This wrapper helps in managing the video's aspect ratio and positioning */
+        .video-foreground {
+            position: absolute; /* Positions relative to .video-background */
+            top: 0;
+            left: 0;
+            width: 100%; /* Initial fill of its parent */
+            height: 100%; /* Initial fill of its parent */
+            pointer-events: none; /* Allows clicks to pass through to elements below */
+        }
+
+        .video-background iframe {
+            position: absolute; /* Positions relative to .video-foreground */
+            top: 0;
+            left: 0;
+            width: 100%; /* Fills the .video-foreground container */
+            height: 100%; /* Fills the .video-foreground container */
+            pointer-events: none; /* Retaining from your original and consistent with CodePen */
+        }
+
+        /* Media Queries for Aspect Ratio Handling (from CodePen) */
+        @media (min-aspect-ratio: 16/9) { /* If screen is wider than 16:9 */
+            .video-foreground {
+                height: 300% !important; /* Make video much taller */
+                top: -100% !important; /* And shift it up to center it vertically */
+            }
+        }
+
+        @media (max-aspect-ratio: 16/9) { /* If screen is taller than 16:9 */
+            .video-foreground {
+                width: 300% !important; /* Make video much wider */
+                left: -100% !important; /* And shift it left to center it horizontally */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-background">
+        <video autoplay loop muted playsinline id="backgroundVideo" class="video-foreground">
+            <source src="https://helloinah.github.io/hompy/contents/img/realism.webm" type="video/webm">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('backgroundVideo');
+            let soundEnabled = false;
+
+            function enableSoundAndPlay() {
+                if (!soundEnabled) {
+                    if (video && video.paused) {
+                        const playPromise = video.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(error => {
+                                console.log("Autoplay was prevented by the browser. User will need to click to play/unmute.");
+                            });
+                        }
+                    }
+                    if (video) {
+                        video.muted = false;
+                    }
+                    soundEnabled = true;
+
+                    document.body.removeEventListener('mousemove', enableSoundAndPlay);
+                    document.body.removeEventListener('touchstart', enableSoundAndPlay);
+                    console.log("Sound enabled due to user interaction.");
+                }
+            }
+
+            document.body.addEventListener('mousemove', enableSoundAndPlay);
+            document.body.addEventListener('touchstart', enableSoundAndPlay);
+        });
+    </script>
+</body>
+</html>

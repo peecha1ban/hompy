@@ -1,0 +1,203 @@
+/* css/style.css */
+/*
+   이 파일은 웹사이트 전체에 적용되는 전역 스타일을 정의합니다.
+   기본 서체, 색상 팔레트, 여백/간격, 테두리 등
+   재사용되는 공통 속성들을 root 변수로 관리하여 쉽게 변경할 수 있습니다.
+   HTML, Body, 그리고 주요 레이아웃 요소들의 기본 스타일이 포함됩니다.
+*/
+
+/* --- 웹 폰트 정의 (Web Font Definition) --- */
+@font-face {
+    font-family: 'Happiness-Sans-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    unicode-range: U+AC00-D7A3; /* 한글 유니코드 범위 */
+}
+
+/* --- Root 변수 (CSS Custom Properties) --- */
+/*
+   웹사이트 전반에 걸쳐 재사용되는 값들을 변수로 정의합니다.
+   여기서 값을 변경하면 해당 변수를 사용하는 모든 요소에 일괄 적용됩니다.
+*/
+:root {
+    /* 폰트 변수 */
+    --font-primary: 'Happiness-Sans-Regular', Courier, monospace, sans-serif;
+    --font-size-small: 0.8rem; /* 작은 텍스트 크기 (13px 기준 10.4px) */
+    
+    /* 색상 팔레트 */
+    --color-primary: rgb(248, 255, 80);   /* 주요 강조 색상 (노랑) */
+    --color-link: rgb(0, 123, 255);       /* 링크 색상 (파랑) */
+    --color-text-primary: rgb(0, 0, 0);   /* 기본 텍스트 색상 (검정) */
+    --color-background-light: rgb(230, 230, 230); /* 밝은 배경색 (회색) */
+    
+    /* RGB 버전 (알파 투명도 사용 시) */
+    --color-primary-rgb: 248, 255, 80;
+    --color-link-rgb: 0, 123, 255;   
+    --color-text-primary-rgb: 0, 0, 0;
+    --color-background-light-rgb: 230, 230, 230;
+
+    /* 간격/여백 변수 (Spacing Variables) */
+    --spacing-xxs: 0.25rem;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+
+    /* 테두리 변수 (Border Variables) */
+    --border-width-thin: 0.0625rem; /* 1px */
+    --border-style-dashed: dashed;
+    --border-style-solid: solid;
+    --border-color-light: rgba(var(--color-text-primary-rgb), 0.15); /* 연한 테두리 색상 */
+    --border-radius-default: 1rem; /* 기본 테두리 둥글기 (16px) */
+
+    /* 기존 stroke 변수들을 위 변수로 대체 */
+    --stroke: var(--border-width-thin) var(--border-style-dashed) var(--color-text-primary);
+    --stroke-solid: var(--border-width-thin) var(--border-style-solid) var(--color-text-primary);
+
+    /* 그림자 변수 (Box Shadow Variables) */
+    --button-highlight: #ffffff; /* 버튼 하이라이트 색상 */
+    --button-shadow: #808080;    /* 버튼 그림자 색상 */
+    --shadow-button-raised-outer: inset -2px -2px var(--color-background-light), inset 1px 1px var(--color-background-light);
+    --shadow-button-raised-inner: inset 2px 2px var(--button-highlight), inset -3px -3px var(--button-shadow), inset 3px 3px var(--color-background-light);
+    --shadow-input-inset: inset 0 1px 2px rgba(0,0,0,.4); /* 입력창 내부 그림자 */
+    --shadow-chatroom-drop: drop-shadow(0 0 0.5rem rgba(var(--color-link-rgb), 0.75)); /* 방명록 드롭 그림자 */
+
+    /* 라인 높이 (Line Height Variables) */
+    --line-height-default: 2em; /* 기본 라인 높이 */
+    --line-height-small: 1.7;   /* 작은 텍스트 라인 높이 (채팅 메시지 등) */
+}
+
+/* --- HTML 기본 스타일 (HTML Base Styles) --- */
+html {
+    font-size: 13px; /* 기준 폰트 크기 */
+    letter-spacing: 0.5px; /* 글자 간격 */
+    line-height: var(--line-height-default); /* 기본 라인 높이 */
+    word-break: keep-all; /* 단어 단위 줄바꿈 유지 */
+    box-sizing: border-box; /* 패딩과 테두리를 너비/높이에 포함 */
+}
+
+/* --- Body 기본 스타일 (Body Base Styles) --- */
+body {
+    margin: 0;
+    font-family: var(--font-primary); /* 기본 폰트 적용 */
+    display: flex;
+    min-height: 100vh; /* 최소 높이를 뷰포트 높이의 100%로 설정 */
+    flex-direction: column; /* 자식 요소들을 세로로 정렬 */
+    overflow: hidden; /* 내용이 넘쳐도 스크롤바 생성 안 함 */
+}
+
+/* --- 버튼, 선택 박스, 입력창, 텍스트 영역 공통 스타일 (Button, Select, Input, Textarea Common Styles) --- */
+/*
+   모든 버튼, 선택 박스, 입력창, 텍스트 영역에 적용되는
+   기본 스타일을 정의하여 일관성을 유지합니다.
+*/
+button, select {
+    margin: 0;
+    vertical-align: middle;
+    -webkit-appearance: none; /* iOS Safari의 기본 스타일 제거 */
+    -moz-appearance: none;    /* Firefox의 기본 스타일 제거 */
+    appearance: none;         /* 브라우저 기본 스타일 제거 */
+    line-height: 1;
+    border: none; 
+    outline: none; /* 포커스 시 아웃라인 제거 */
+    box-sizing: border-box;
+    background: none; /* 배경 제거 */
+    font-family: var(--font-primary); /* 기본 폰트 적용 */
+    background-color: transparent; /* 배경색 투명으로 설정 */
+}
+
+input,
+textarea {
+    margin: 0;
+    vertical-align: middle;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    line-height: 1;
+    border: none; 
+    outline: none;
+    box-sizing: border-box;
+    background: #fff; /* 기본 배경색 흰색 */
+    font-family: var(--font-primary); /* 기본 폰트 적용 */
+    box-shadow: var(--shadow-input-inset); /* 입력창 내부 그림자 */
+}
+
+/* IE10 이상에서 input box 에 추가된 지우기 버튼 제거 */
+input::-ms-clear { display: none; }
+
+/* --- 링크 기본 스타일 (Link Base Styles) --- */
+a {
+    color: inherit; /* 부모 요소의 색상을 상속 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+/* --- 메인 컨테이너 (Main Container) --- */
+/*
+   웹사이트의 좌측 패널과 우측 패널을 포함하는 메인 레이아웃 컨테이너입니다.
+*/
+.container {
+    display: flex; /* 플렉스 박스 사용 */
+    width: 100%;
+    flex-grow: 1; /* 사용 가능한 공간을 채우도록 확장 */
+    min-height: 0;
+    height: 100vh; /* 뷰포트 높이의 100% 사용 */
+}
+
+/* --- 좌측 패널 (Left Panel) --- */
+/*
+   게시물 목록, 내비게이션, 검색창 등이 위치하는 좌측 영역입니다.
+*/
+.left-panel {
+    flex-shrink: 0; /* 공간이 부족해도 줄어들지 않음 */
+    overflow-y: auto; /* 내용이 넘치면 세로 스크롤바 생성 */
+    box-sizing: border-box;
+    transition: none; /* 모든 전환 효과 비활성화 */
+    background-color: var(--color-background-light); /* 밝은 배경색 */
+}
+
+/* --- 우측 패널 (Right Panel) --- */
+/*
+   아이프레임 콘텐츠가 표시되는 우측 영역입니다.
+*/
+.right-panel {
+    flex-grow: 1; /* 사용 가능한 공간을 채우도록 확장 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    box-sizing: border-box;
+    transition: none; /* 모든 전환 효과 비활성화 */
+    position: relative;
+}
+
+/* --- 크기 조절 바 (Resizer Styles - Desktop) --- */
+/*
+   좌측 및 우측 패널의 크기를 조절하는 바의 스타일입니다.
+   데스크탑 환경에 적용됩니다.
+*/
+.resizer {
+    background-color: rgba(var(--color-text-primary-rgb), 0.2); /* 배경색 (투명도 적용) */
+    width: var(--spacing-xs); /* 8px */
+    cursor: ew-resize; /* 가로 크기 조절 커서 */
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+    transition: background-color 0.2s ease; /* 배경색 변경 시 부드러운 전환 효과 */
+}
+
+.resizer:hover {
+    background-color: var(--color-primary); /* 호버 시 강조 색상으로 변경 */
+}
+
+/* --- 콘텐츠 아이프레임 (Content Iframe) --- */
+/*
+   실제 웹 콘텐츠가 로드되는 아이프레임의 스타일입니다.
+*/
+#content-frame {
+    width: 100%;
+    height: 100%;
+    box-shadow: none; /* 그림자 제거 */
+    overflow-y: auto !important;
+}
